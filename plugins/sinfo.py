@@ -10,6 +10,7 @@ import platform
 import sys
 
 import psutil
+from . import ultroid_cmd
 from pyUltroid.version import __version__ as UltVer
 from telethon import __version__
 
