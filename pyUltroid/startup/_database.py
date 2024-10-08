@@ -108,7 +108,7 @@ class _BaseDatabase:
 
 
 class MongoDB(_BaseDatabase):
-    def __init__(self, key, dbname="UltroidDB"):
+    def __init__(self, key, dbname="pyPragalUB"):
         self.dB = MongoClient(key, serverSelectionTimeoutMS=5000)
         self.db = self.dB[dbname]
         super().__init__()
@@ -146,7 +146,7 @@ class MongoDB(_BaseDatabase):
             return x["value"]
 
     def flushall(self):
-        self.dB.drop_database("UltroidDB")
+        self.dB.drop_database("pyPragalUB")
         self._cache.clear()
         return True
 
@@ -320,7 +320,7 @@ class LocalDB(_BaseDatabase):
         return f"<Ultroid.LocalDB\n -total_keys: {len(self.keys())}\n>"
 
 
-def UltroidDB():
+def pyPragalUB():
     _er = False
     from .. import HOSTED_ON
 
