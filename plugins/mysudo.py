@@ -82,19 +82,27 @@ async def block_sudo(e):
 
     # Get the current list of SUDO users
     sudos = udB.get_key("SUDOS") or []
+    full_sudo = udB.get_key("FULLSUDO")
+
+    # Debug prints to track values
+    print("User ID to block:", rid)
+    print("Current SUDO list before removal:", sudos)
 
     if rid not in sudos:
         return await e.reply("This user is not in the SUDO list.")
 
-    # Remove the user from SUDO list
+    # Remove the user from the SUDO list
     sudos.remove(rid)
     udB.set_key("SUDOS", sudos)
 
-    # Optionally remove them from FULLSUDO as well
-    full_sudo = udB.get_key("FULLSUDO")
+    # Check if the user is the FULLSUDO and clear that entry if necessary
     if full_sudo == rid:
         udB.set_key("FULLSUDO", None)
 
+    # Debug print after removal
+    print("Updated SUDO list after removal:", udB.get_key("SUDOS"))
+
+    # Notify that the user has been blocked
     name = await e.client.get_entity(int(rid))
     men = inline_mention(name)
 
